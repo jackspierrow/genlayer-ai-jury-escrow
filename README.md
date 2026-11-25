@@ -148,9 +148,36 @@ tests/
   direct/
     conftest.py
     test_ai_jury_escrow.py   # direct-mode tests (in-memory, mocked web/LLM)
+integrations/
+  rentahuman/
+    rentahuman_court.py      # Internet Court escrow for rentahuman.ai tasks
+    simulate.py              # full Austin scenario, direct mode
+    tests/test_rentahuman_court.py
+    README.md
+    demo_transcript.md
 requirements.txt             # genlayer-py v0.18, genlayer-test v0.29,
                              # genvm-linter, pytest
 pyproject.toml
+```
+
+## Integrations
+
+### rentahuman.ai × Internet Court (Mission 101)
+
+`integrations/rentahuman/` implements the official rentahuman.ai use
+case from the Internet Court docs: an AI agent hires a human to verify
+a physical location, and the AI Jury Escrow contract settles the deal.
+See [`integrations/rentahuman/README.md`](integrations/rentahuman/README.md).
+
+```bash
+# Show the Austin office brief (statement + guidelines)
+python3 integrations/rentahuman/rentahuman_court.py brief
+
+# Run the whole scenario against the real contract (direct mode)
+./venv/bin/python integrations/rentahuman/simulate.py
+
+# Tests (12 integration tests + 24 contract tests)
+./venv/bin/python -m pytest integrations/rentahuman/tests/ tests/direct/ -q
 ```
 
 ## Testing
